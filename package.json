@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "npm --prefix site run dev",
     "build": "npm --prefix site run build",
-    "preview": "npm --prefix site run preview",
+    "lint": "npm --prefix site run lint",
     "research:update": "node research/generate-update.mjs"
   }
 }

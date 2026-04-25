@@ -1,6 +1,6 @@
 site/node_modules/
-site/dist/
-site/.astro/
+site/.next/
+site/out/
 .terraform/
 *.tfstate
 *.tfstate.*

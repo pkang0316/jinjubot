@@ -1,0 +1,142 @@
+.shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0 72px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.hero {
+  padding: 32px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  color: var(--accent-strong);
+}
+
+.shell h1,
+.shell h2,
+.shell h3,
+.shell p,
+.shell li,
+.shell dt,
+.shell dd {
+  margin-top: 0;
+}
+
+.hero h1 {
+  margin-bottom: 16px;
+  font-size: clamp(3rem, 8vw, 5.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.shell h2 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+.lede {
+  max-width: 48rem;
+  font-size: 1.3rem;
+  color: var(--muted);
+}
+
+.summary {
+  max-width: 42rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.heroMeta {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  padding: 20px;
+  background: var(--surface-strong);
+  border-radius: 22px;
+  border: 1px solid var(--line);
+}
+
+.heroMeta dt {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 4px;
+}
+
+.heroMeta dd {
+  margin-left: 0;
+  font-size: 1rem;
+}
+
+.contentGrid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  margin-bottom: 24px;
+}
+
+.contentGrid > .panel,
+.highlights {
+  padding: 28px;
+}
+
+.sectionHeading {
+  margin-bottom: 20px;
+}
+
+.steps {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.steps li + li,
+.highlights li + li {
+  margin-top: 10px;
+}
+
+.highlights ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero,
+  .contentGrid > .panel,
+  .highlights {
+    padding: 22px;
+  }
+}

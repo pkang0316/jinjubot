@@ -1,3 +1,7 @@
+"use client";
+
+import styles from "./TopicPulse.module.css";
+
 type Topic = {
   name: string;
   signal: number;
@@ -11,14 +15,14 @@ type Props = {
 
 export default function TopicPulse({ topics }: Props) {
   return (
-    <div className="topic-pulse">
+    <div className={styles.topicPulse}>
       {topics.map((topic) => (
-        <article className="topic-card" key={topic.name}>
-          <div className="topic-card__header">
+        <article className={styles.topicCard} key={topic.name}>
+          <div className={styles.topicCardHeader}>
             <h3>{topic.name}</h3>
             <span>{topic.change}</span>
           </div>
-          <div aria-label={`${topic.signal} signal score`} className="topic-card__bar">
+          <div aria-label={`${topic.signal} signal score`} className={styles.topicCardBar}>
             <div style={{ width: `${topic.signal}%` }} />
           </div>
           <p>{topic.note}</p>

@@ -38,7 +38,7 @@ const payload = {
   ],
   highlights: [
     "The homepage reads generated content directly from the repository.",
-    "React is used only for selective interactivity inside an Astro site.",
+    "React is used only for selective interactivity inside a Next.js site.",
     "Terraform is reserved for infrastructure, while CI handles builds."
   ]
 };

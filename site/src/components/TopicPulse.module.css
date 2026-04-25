@@ -1,0 +1,51 @@
+.topicPulse {
+  display: grid;
+  gap: 16px;
+}
+
+.topicCard {
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+}
+
+.topicCardHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.topicCardHeader h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.topicCardHeader span {
+  color: var(--accent);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.topicCardBar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(31, 29, 26, 0.08);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.topicCardBar div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent) 0%, #d97706 100%);
+}
+
+.topicCard p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--muted);
+}

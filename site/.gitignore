@@ -1,8 +1,6 @@
-# build output
-dist/
-
-# generated types
-.astro/
+# next output
+.next/
+out/
 
 # dependencies
 node_modules/
