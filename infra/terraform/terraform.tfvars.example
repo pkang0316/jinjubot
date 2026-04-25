@@ -1,0 +1,5 @@
+cloudflare_api_token = "replace-me"
+cloudflare_account_id = "replace-me"
+zone_name             = "example.com"
+site_subdomain        = "@"
+site_target           = "example.pages.dev"

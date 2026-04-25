@@ -1,0 +1,43 @@
+name: Research Update
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-content:
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+
+      - name: Generate research content
+        run: node research/generate-update.mjs
+
+      - name: Build site
+        working-directory: site
+        run: npm run build
+
+      - name: Commit generated content
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(content): refresh research digest"
+          file_pattern: content/research-digest.json
