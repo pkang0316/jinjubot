@@ -1,5 +1,5 @@
 variable "cloudflare_api_token" {
-  description = "Cloudflare API token with permission to manage the selected zone."
+  description = "Cloudflare API token with permission to manage Pages resources in the selected account."
   type        = string
   sensitive   = true
 }
@@ -9,19 +9,62 @@ variable "cloudflare_account_id" {
   type        = string
 }
 
-variable "zone_name" {
-  description = "The primary DNS zone for the website, such as example.com."
+variable "pages_project_name" {
+  description = "Cloudflare Pages project name."
   type        = string
+  default     = "jinjubot"
 }
 
-variable "site_subdomain" {
-  description = "Hostname to use for the site within the zone."
+variable "github_owner" {
+  description = "GitHub owner for the repository connected to the Pages project."
   type        = string
-  default     = "@"
+  default     = "pkang0316"
 }
 
-variable "site_target" {
-  description = "Temporary DNS target for the site deployment endpoint."
+variable "github_owner_id" {
+  description = "GitHub numeric owner ID for the connected repository."
   type        = string
-  default     = "example.pages.dev"
+  default     = "65355094"
+}
+
+variable "github_repo_name" {
+  description = "GitHub repository name connected to the Pages project."
+  type        = string
+  default     = "jinjubot"
+}
+
+variable "github_repo_id" {
+  description = "GitHub numeric repository ID for the connected repository."
+  type        = string
+  default     = "1221132298"
+}
+
+variable "production_branch" {
+  description = "Production branch used by Cloudflare Pages."
+  type        = string
+  default     = "main"
+}
+
+variable "build_command" {
+  description = "Command Cloudflare Pages runs to build the site."
+  type        = string
+  default     = "npm run build"
+}
+
+variable "build_output_dir" {
+  description = "Directory emitted by the build process."
+  type        = string
+  default     = "out"
+}
+
+variable "build_root_dir" {
+  description = "Directory within the repo where Cloudflare should run the build."
+  type        = string
+  default     = "site"
+}
+
+variable "custom_domains" {
+  description = "Custom domains to attach to the Pages project."
+  type        = set(string)
+  default     = []
 }

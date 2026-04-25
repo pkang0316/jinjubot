@@ -2,6 +2,8 @@
 
 This repository is the foundation for a content-driven website that is updated on a schedule by research automation.
 
+The static site is currently wired for deployment to Cloudflare Pages from the `main` branch.
+
 ## Structure
 
 - `site/`: Next.js frontend that renders the public website.

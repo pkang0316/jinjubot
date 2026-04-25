@@ -1,7 +1,11 @@
-output "zone_id" {
-  value = data.cloudflare_zone.site.zone_id
+output "pages_project_name" {
+  value = cloudflare_pages_project.site.name
 }
 
-output "site_hostname" {
-  value = cloudflare_dns_record.site.name
+output "pages_subdomain" {
+  value = cloudflare_pages_project.site.subdomain
+}
+
+output "custom_domains" {
+  value = [for domain in cloudflare_pages_domain.custom : domain.name]
 }

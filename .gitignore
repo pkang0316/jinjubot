@@ -2,7 +2,10 @@ site/node_modules/
 site/.next/
 site/out/
 .terraform/
+infra/terraform/.terraform/
 *.tfstate
 *.tfstate.*
+*.tfvars
+*.tfvars.json
 .terraform.lock.hcl
 .DS_Store
