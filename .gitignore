@@ -9,3 +9,4 @@ infra/terraform/.terraform/
 *.tfvars.json
 .terraform.lock.hcl
 .DS_Store
+tools/terraform/

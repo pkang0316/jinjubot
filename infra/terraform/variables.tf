@@ -9,6 +9,11 @@ variable "cloudflare_account_id" {
   type        = string
 }
 
+variable "cloudflare_zone_name" {
+  description = "Cloudflare zone name used for DNS records, for example jinjubot.io."
+  type        = string
+}
+
 variable "pages_project_name" {
   description = "Cloudflare Pages project name."
   type        = string

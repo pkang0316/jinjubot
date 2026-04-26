@@ -2,7 +2,7 @@
 
 This repository is the foundation for a content-driven website that is updated on a schedule by research automation.
 
-The static site is currently wired for deployment to Cloudflare Pages from the `main` branch.
+The public site is a static Next.js build deployed through Cloudflare Pages from the `main` branch.
 
 ## Structure
 
@@ -22,6 +22,6 @@ The static site is currently wired for deployment to Cloudflare Pages from the `
 ## Next Steps
 
 1. Replace the placeholder research script with your real agent pipeline.
-2. Decide whether deployments should go to Cloudflare Pages or a Worker-based static site.
-3. Fill in the Terraform variables for your Cloudflare account and zone.
-4. Add a deploy workflow once the Cloudflare target is chosen.
+2. Move the canonical content store from committed JSON into the future AWS-backed ingestion pipeline.
+3. Add Terraform for the AWS workflow stack alongside the Cloudflare setup.
+4. Tighten the homepage presentation as the real data model grows.

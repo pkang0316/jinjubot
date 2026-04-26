@@ -7,6 +7,8 @@ This directory codifies the Cloudflare Pages setup for the public website.
 - Cloudflare Pages project
 - GitHub-backed build configuration
 - Optional custom domains attached to the Pages project
+- Apex CNAME record pointing at the Pages subdomain when the zone apex is included in `custom_domains`
+- `www` CNAME record pointing at the Pages subdomain when `www.<zone>` is included in `custom_domains`
 
 ## Prerequisite
 
@@ -41,8 +43,8 @@ Copy [terraform.tfvars.example](/C:/Users/pkang/Documents/Codex/2026-04-25/i-wan
 From this directory:
 
 ```powershell
-..\..\tools\terraform\terraform.exe init -backend=false
-..\..\tools\terraform\terraform.exe plan
+terraform init -backend=false
+terraform plan
 ```
 
 ## Secret handling

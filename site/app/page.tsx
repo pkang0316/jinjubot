@@ -1,74 +1,49 @@
-import TopicPulse from "@/src/components/TopicPulse";
+import { FeedTabs } from "./feed-tabs";
 import { getDigest } from "@/lib/digest";
 import styles from "./page.module.css";
 
 export default async function HomePage() {
   const digest = await getDigest();
-  const updatedLabel = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "long",
-    timeStyle: "short"
-  }).format(new Date(digest.updatedAt));
+  const rankedItems = [...digest.items].sort((left, right) => right.interest_rating - left.interest_rating);
+  const hotPicks = rankedItems.slice(0, 3);
 
   return (
     <main className={styles.shell}>
-      <section className={`${styles.panel} ${styles.hero}`}>
-        <div>
-          <p className={styles.eyebrow}>Agentic research publishing starter</p>
-          <h1>{digest.siteTitle}</h1>
-          <p className={styles.lede}>{digest.tagline}</p>
-          <p className={styles.summary}>{digest.summary}</p>
-        </div>
-        <dl className={styles.heroMeta}>
-          <div>
-            <dt>Cadence</dt>
-            <dd>{digest.cadence}</dd>
-          </div>
-          <div>
-            <dt>Last update</dt>
-            <dd>{updatedLabel}</dd>
-          </div>
-          <div>
-            <dt>Content source</dt>
-            <dd>
-              <code>content/research-digest.json</code>
-            </dd>
-          </div>
-        </dl>
+      <section className={styles.heroBackdrop} aria-hidden="true">
+        <div className={styles.heroWash} />
+        <div className={styles.heroLines} />
       </section>
 
-      <section className={styles.contentGrid}>
-        <article className={styles.panel}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Signal board</p>
-            <h2>Topics worth watching</h2>
-          </div>
-          <TopicPulse topics={digest.topics} />
-        </article>
-
-        <article className={styles.panel}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Publishing loop</p>
-            <h2>How this repo is wired</h2>
-          </div>
-          <ol className={styles.steps}>
-            <li>Run a research job on a daily or weekly schedule.</li>
-            <li>Write normalized content into the repo.</li>
-            <li>Build static HTML with Next.js.</li>
-            <li>Deploy via CI while Terraform manages infrastructure.</li>
-          </ol>
-        </article>
-      </section>
-
-      <section className={`${styles.panel} ${styles.highlights}`}>
-        <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>Starter notes</p>
-          <h2>Current highlights</h2>
+      <section className={styles.hotPicksSection}>
+        <div className={styles.hotPicksHeader}>
+          <p className={styles.eyebrow}>Hot picks</p>
         </div>
-        <ul>
-          {digest.highlights.map((highlight) => (
-            <li key={highlight}>{highlight}</li>
+
+        <div className={styles.hotPicksGrid}>
+          {hotPicks.map((item) => (
+            <article className={styles.hotPickCard} key={item.id}>
+              <a className={styles.hotPickImageLink} href={item.url} aria-label={item.title}>
+                {item.image_url ? (
+                  <img className={styles.hotPickImage} src={item.image_url} alt={item.title} />
+                ) : (
+                  <div className={styles.hotPickPlaceholder} aria-hidden="true" />
+                )}
+              </a>
+
+              <div className={styles.hotPickBody}>
+                <span className={styles.categoryPill}>{item.category}</span>
+                <h2>
+                  <a href={item.url}>{item.title}</a>
+                </h2>
+                <p>{item.description}</p>
+              </div>
+            </article>
           ))}
-        </ul>
+        </div>
+      </section>
+
+      <section className={styles.feedSection}>
+        <FeedTabs items={rankedItems} />
       </section>
     </main>
   );

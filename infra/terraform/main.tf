@@ -1,3 +1,12 @@
+data "cloudflare_zone" "site" {
+  filter = {
+    account = {
+      id = var.cloudflare_account_id
+    }
+    name = var.cloudflare_zone_name
+  }
+}
+
 resource "cloudflare_pages_project" "site" {
   account_id        = var.cloudflare_account_id
   name              = var.pages_project_name
@@ -31,4 +40,26 @@ resource "cloudflare_pages_domain" "custom" {
   account_id   = var.cloudflare_account_id
   project_name = cloudflare_pages_project.site.name
   name         = each.value
+}
+
+resource "cloudflare_dns_record" "pages_apex" {
+  count = contains(var.custom_domains, var.cloudflare_zone_name) ? 1 : 0
+
+  zone_id = data.cloudflare_zone.site.id
+  name    = var.cloudflare_zone_name
+  type    = "CNAME"
+  content = cloudflare_pages_project.site.subdomain
+  proxied = true
+  ttl     = 1
+}
+
+resource "cloudflare_dns_record" "pages_www" {
+  count = contains(var.custom_domains, "www.${var.cloudflare_zone_name}") ? 1 : 0
+
+  zone_id = data.cloudflare_zone.site.id
+  name    = "www.${var.cloudflare_zone_name}"
+  type    = "CNAME"
+  content = cloudflare_pages_project.site.subdomain
+  proxied = true
+  ttl     = 1
 }
