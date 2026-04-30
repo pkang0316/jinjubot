@@ -10,3 +10,4 @@ infra/terraform/.terraform/
 .terraform.lock.hcl
 .DS_Store
 tools/terraform/
+infra/.env.local

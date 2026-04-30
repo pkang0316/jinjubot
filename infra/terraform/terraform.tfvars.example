@@ -2,3 +2,4 @@ cloudflare_account_id = "replace-me"
 cloudflare_zone_name  = "example.com"
 pages_project_name    = "jinjubot"
 custom_domains        = ["example.com", "www.example.com"]
+enable_llm_gateway    = true

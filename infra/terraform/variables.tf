@@ -73,3 +73,57 @@ variable "custom_domains" {
   type        = set(string)
   default     = []
 }
+
+variable "enable_llm_gateway" {
+  description = "Whether to create the Cloudflare Tunnel, DNS, and Access resources for the local LLM gateway."
+  type        = bool
+  default     = false
+}
+
+variable "llm_tunnel_name" {
+  description = "User-friendly name for the Cloudflare Tunnel that fronts the local LLM gateway."
+  type        = string
+  default     = "jinjubot-local-llm"
+}
+
+variable "llm_gateway_subdomain" {
+  description = "Subdomain used for the internet-facing LLM gateway endpoint."
+  type        = string
+  default     = "llm"
+}
+
+variable "llm_gateway_service" {
+  description = "Local service URL that cloudflared should forward traffic to."
+  type        = string
+  default     = "http://localhost:8080"
+}
+
+variable "llm_access_application_name" {
+  description = "Display name for the Cloudflare Access application protecting the LLM gateway."
+  type        = string
+  default     = "jinjubot-llm-gateway"
+}
+
+variable "llm_access_policy_name" {
+  description = "Name of the Cloudflare Access policy that allows service-token traffic to the LLM gateway."
+  type        = string
+  default     = "jinjubot-llm-service-token"
+}
+
+variable "llm_access_policy_session_duration" {
+  description = "Access session duration for the LLM gateway application."
+  type        = string
+  default     = "24h"
+}
+
+variable "llm_service_token_name" {
+  description = "Name of the Cloudflare Access service token used for automated requests to the LLM gateway."
+  type        = string
+  default     = "jinjubot-llm-client"
+}
+
+variable "llm_service_token_duration" {
+  description = "Lifetime of the Cloudflare Access service token used by automation."
+  type        = string
+  default     = "8760h"
+}
