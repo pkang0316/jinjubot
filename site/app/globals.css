@@ -15,10 +15,7 @@
 }
 
 html {
-  background:
-    radial-gradient(circle at top left, rgba(173, 115, 63, 0.18), transparent 28%),
-    radial-gradient(circle at right 18%, rgba(71, 117, 103, 0.2), transparent 24%),
-    linear-gradient(180deg, #f7f0e7 0%, var(--bg) 100%);
+  background: linear-gradient(180deg, #f6efe6 0%, #efe6d9 100%);
   color: var(--text);
   font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }
@@ -26,6 +23,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  background: linear-gradient(180deg, #f6efe6 0%, #efe6d9 100%);
 }
 
 a {

@@ -1,7 +1,7 @@
 .shell {
-  width: min(1180px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 34px 0 84px;
+  width: 100%;
+  margin: 0;
+  padding: 18px 0 84px;
   position: relative;
 }
 
@@ -46,17 +46,22 @@
 
 .heroSimple,
 .hotPicksSection,
-.feedSection {
-  border: 1px solid var(--line);
-  border-radius: 30px;
+.feedSection,
+.stateSection {
+  border: 1px solid rgba(86, 67, 46, 0.1);
+  border-radius: 24px;
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 42px rgba(80, 57, 33, 0.08);
 }
 
 .heroSimple {
   position: relative;
-  margin-bottom: 18px;
-  padding: 28px 30px 24px;
+  margin-bottom: 14px;
+  padding: 0 16px 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .eyebrow {
@@ -69,10 +74,73 @@
 }
 
 .heroSimple h1 {
-  margin-bottom: 0;
-  font-size: clamp(3.2rem, 8vw, 5.7rem);
-  line-height: 0.92;
-  letter-spacing: -0.05em;
+  margin: 0;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.heroCopy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroMascotInline {
+  flex: 0 0 auto;
+  width: clamp(48px, 5vw, 64px);
+  height: auto;
+  margin: 0;
+  filter: drop-shadow(0 8px 12px rgba(31, 22, 14, 0.1));
+}
+
+.heroContent {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-content: center;
+}
+
+.heroMeta {
+  margin: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  color: var(--muted);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+
+.heroMeta span {
+  color: rgba(47, 89, 78, 0.45);
+}
+
+.stateSection {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 8px 16px 0;
+  padding: 24px 22px;
+}
+
+.stateCopy {
+  display: grid;
+  gap: 6px;
+}
+
+.stateCopy h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  line-height: 1.02;
+}
+
+.stateCopy p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .hotPickBody h2 a,
@@ -88,24 +156,24 @@
 
 .hotPicksSection {
   margin-bottom: 22px;
-  padding: 22px;
-}
-
-.hotPicksHeader {
-  margin-bottom: 14px;
+  padding: 16px;
 }
 
 .hotPicksGrid {
   display: grid;
-  gap: 16px;
+  gap: 12px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .hotPickCard {
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: 20px;
   background: rgba(255, 251, 245, 0.84);
   border: 1px solid rgba(78, 62, 41, 0.12);
+}
+
+.hotPickLead {
+  grid-column: span 1;
 }
 
 .hotPickImageLink {
@@ -113,38 +181,44 @@
   background: rgba(71, 117, 103, 0.12);
 }
 
-.hotPickImage,
-.hotPickPlaceholder {
+.hotPickImage {
   display: block;
   width: 100%;
-  aspect-ratio: 1.18 / 1;
+  aspect-ratio: 1.28 / 1;
   object-fit: cover;
 }
 
-.hotPickPlaceholder {
-  background:
-    linear-gradient(135deg, rgba(71, 117, 103, 0.26), rgba(255, 248, 240, 0.4)),
-    linear-gradient(180deg, rgba(106, 73, 38, 0.18), rgba(0, 0, 0, 0));
-}
-
 .hotPickBody {
-  padding: 18px 18px 20px;
+  padding: 14px 14px 15px;
 }
 
 .hotPickBody h2 {
-  margin: 12px 0 10px;
-  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
-  line-height: 1.1;
+  margin: 10px 0 8px;
+  font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+  line-height: 1.08;
+}
+
+.hotPickLead .hotPickBody h2 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+}
+
+.hotPickLead .hotPickImage {
+  aspect-ratio: 1.08 / 1;
+}
+
+.hotPickNoImage .hotPickBody {
+  padding-top: 16px;
 }
 
 .hotPickBody p {
   margin-bottom: 0;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.45;
+  font-size: 0.96rem;
 }
 
 .feedSection {
-  padding: 24px;
+  padding: 18px;
 }
 
 .feedList {
@@ -196,11 +270,11 @@
 
 .feedCard {
   display: grid;
-  gap: 22px;
+  gap: 18px;
   grid-template-columns: 292px minmax(0, 1fr);
   align-items: stretch;
-  padding: 18px;
-  border-radius: 28px;
+  padding: 16px;
+  border-radius: 22px;
   background: rgba(255, 251, 245, 0.84);
   border: 1px solid rgba(78, 62, 41, 0.12);
 }
@@ -213,8 +287,7 @@
   background: rgba(71, 117, 103, 0.12);
 }
 
-.feedImage,
-.feedImageFallback {
+.feedImage {
   display: block;
   width: 100%;
   height: 100%;
@@ -222,10 +295,8 @@
   object-fit: cover;
 }
 
-.feedImageFallback {
-  background:
-    radial-gradient(circle at top, rgba(255, 241, 224, 0.92), transparent 45%),
-    linear-gradient(135deg, rgba(71, 117, 103, 0.28), rgba(116, 83, 49, 0.16));
+.feedCardNoImage {
+  grid-template-columns: 1fr;
 }
 
 .feedBody {
@@ -305,31 +376,60 @@
     grid-template-columns: 1fr;
   }
 
-  .feedImage,
-  .feedImageFallback {
+  .feedImage {
     min-height: 280px;
   }
 }
 
 @media (max-width: 760px) {
   .shell {
-    width: min(100% - 20px, 1180px);
-    padding-top: 20px;
+    width: 100%;
+    margin: 0;
+    padding-top: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 72px;
   }
 
   .heroSimple,
   .hotPicksSection,
   .feedSection,
   .hotPickBody {
-    padding: 22px;
+    padding: 14px;
+  }
+
+  .hotPickBody {
+    padding: 12px 12px 13px;
+  }
+
+  .heroCopy {
+    gap: 10px;
+  }
+
+  .heroMascotInline {
+    width: clamp(42px, 13vw, 52px);
+  }
+
+  .heroSimple h1 {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+
+  .heroMeta {
+    font-size: 0.68rem;
+    gap: 5px;
+  }
+
+  .stateSection {
+    margin: 8px 10px 0;
+    padding: 18px 16px;
+    gap: 14px;
   }
 
   .feedCard {
     padding: 14px;
   }
 
-  .feedImage,
-  .feedImageFallback {
+  .feedImage {
     min-height: 220px;
   }
 }

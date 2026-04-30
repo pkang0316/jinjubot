@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Category, FeedItem } from "@/lib/digest";
+import type { Category, FeedItem } from "@/lib/feed";
 import styles from "./page.module.css";
 
 const sourceFormatter = new Intl.DateTimeFormat("en-US", {
@@ -51,24 +51,32 @@ export function FeedTabs({ items }: FeedTabsProps) {
 
       <div className={styles.feedList}>
         {filteredItems.map((item) => (
-          <article className={styles.feedCard} key={item.id}>
-            <a className={styles.feedImageLink} href={item.url} aria-label={item.title}>
-              {item.image_url ? (
+          <article className={`${styles.feedCard} ${item.image_url ? "" : styles.feedCardNoImage}`} key={item.id}>
+            {item.image_url ? (
+              <a
+                className={styles.feedImageLink}
+                href={item.url}
+                aria-label={item.title}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img className={styles.feedImage} src={item.image_url} alt={item.title} />
-              ) : (
-                <div className={styles.feedImageFallback} aria-hidden="true" />
-              )}
-            </a>
+              </a>
+            ) : null}
 
             <div className={styles.feedBody}>
               <div className={styles.feedTopline}>
                 <span className={styles.categoryPill}>{item.category}</span>
-                <a href={item.source.url}>{item.source.name}</a>
+                <a href={item.source.url} target="_blank" rel="noopener noreferrer">
+                  {item.source.name}
+                </a>
                 <span>Seen {sourceFormatter.format(new Date(item.last_seen_at))}</span>
               </div>
 
               <h3>
-                <a href={item.url}>{item.title}</a>
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  {item.title}
+                </a>
               </h3>
               <p className={styles.description}>{item.description}</p>
               <p className={styles.reason}>{item.reason}</p>
