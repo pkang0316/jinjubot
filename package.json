@@ -6,6 +6,7 @@
     "build": "npm --prefix site run build",
     "lint": "npm --prefix site run lint",
     "research:update": "node research/generate-update.mjs",
+    "research:eventbrite": "node research/eventbrite-nova.mjs",
     "llm:bootstrap": "powershell -ExecutionPolicy Bypass -File .\\scripts\\llm.ps1 bootstrap",
     "llm:health": "powershell -ExecutionPolicy Bypass -File .\\scripts\\llm.ps1 health",
     "llm:smoke": "powershell -ExecutionPolicy Bypass -File .\\scripts\\llm.ps1 smoke"

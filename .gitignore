@@ -11,3 +11,7 @@ infra/terraform/.terraform/
 .DS_Store
 tools/terraform/
 infra/.env.local
+__pycache__/
+*.pyc
+infra/terraform/aws-durable/build/
+infra/terraform/aws-durable/eventbrite-durable.zip

@@ -1,0 +1,8 @@
+aws_region            = "us-east-1"
+project_name          = "jinjubot"
+environment           = "dev"
+lambda_function_name  = "jinjubot-eventbrite-nova"
+llm_gateway_url       = "https://llm.jinjubot.io"
+cf_access_secret_arn  = "arn:aws:secretsmanager:us-east-1:123456789012:secret:llm.jinjubot.io-example"
+enable_schedule       = false
+schedule_expression   = "rate(1 day)"

@@ -1,8 +1,8 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 
-async function readInfraEnvVar(name: string): Promise<string | null> {
-  const envPath = path.join(process.cwd(), "..", "infra", ".env.local");
+async function readEnvFileVar(fileName: string, name: string): Promise<string | null> {
+  const envPath = path.join(process.cwd(), "..", "infra", fileName);
 
   try {
     const contents = await fs.readFile(envPath, "utf8");
@@ -25,5 +25,11 @@ async function readInfraEnvVar(name: string): Promise<string | null> {
 }
 
 export async function getPublishedFeedUrl(): Promise<string> {
-  return process.env.JINJUBOT_FEED_URL?.trim() || (await readInfraEnvVar("JINJUBOT_FEED_URL")) || "";
+  return (
+    process.env.NEXT_PUBLIC_JINJUBOT_FEED_URL?.trim() ||
+    process.env.JINJUBOT_FEED_URL?.trim() ||
+    (await readEnvFileVar(".env.local", "JINJUBOT_FEED_URL")) ||
+    (await readEnvFileVar(".env.example", "JINJUBOT_FEED_URL")) ||
+    ""
+  );
 }
