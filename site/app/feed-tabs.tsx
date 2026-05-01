@@ -78,6 +78,7 @@ export function FeedTabs({ items }: FeedTabsProps) {
                   {item.title}
                 </a>
               </h3>
+              {item.time_summary ? <p className={styles.itemTime}>{item.time_summary}</p> : null}
               <p className={styles.description}>{item.description}</p>
               <p className={styles.reason}>{item.reason}</p>
 

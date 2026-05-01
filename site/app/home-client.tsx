@@ -154,6 +154,7 @@ export function HomeClient({ publishedFeedUrl }: HomeClientProps) {
                     {item.title}
                   </a>
                 </h2>
+                {item.time_summary ? <p className={styles.itemTime}>{item.time_summary}</p> : null}
                 <p>{item.description}</p>
               </div>
             </article>

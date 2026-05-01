@@ -16,6 +16,14 @@ export type FeedItem = {
   description: string;
   url: string;
   image_url?: string;
+  start_at?: string | null;
+  end_at?: string | null;
+  time_summary?: string | null;
+  times?: Array<{
+    label?: string | null;
+    start_at?: string | null;
+    end_at?: string | null;
+  }>;
   source: Source;
   discovered_at: string;
   updated_at: string;
