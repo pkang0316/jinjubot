@@ -19,13 +19,13 @@ It does two jobs:
 - `jinjubot_research/bounded_crawl.py`
   Source registry loading, seed fetch, follow-up planning, and bounded HTML crawl helpers.
 - `jinjubot_research/eventbrite.py`
-  Shared Eventbrite listing, planning, deep-fetch, and normalization logic.
+  Shared event-source listing, planning, deep-fetch, and normalization helpers, including Eventbrite and Mosaic-specific adapters.
 - `jinjubot_research/local_digest.py`
   Merges event results into `content/research-digest.json` for local iteration.
 - `jinjubot_research/durable_handler.py`
   AWS durable-Lambda entrypoint.
 - `run_eventbrite_nova.py`
-  Local CLI for the first bounded crawl workflow, currently seeded by Eventbrite Northern Virginia.
+  Local CLI for the bounded crawl workflow, currently seeded by the default source registry.
 
 ## Local usage
 

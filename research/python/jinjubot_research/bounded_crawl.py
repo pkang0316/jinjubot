@@ -4,10 +4,12 @@ from typing import Any
 from urllib.parse import urlparse
 
 from .config import DiscoveryConfig
-from .eventbrite import (
+from .event_sources import (
+    USER_TASTE_PROFILE,
     call_gateway,
     extract_candidate_event_urls,
     extract_event_record_from_content,
+    extract_mosaic_event_urls,
     html_to_condensed_text,
     parse_og_image,
     parse_title_from_html,
@@ -61,7 +63,20 @@ def get_default_sources(config: DiscoveryConfig) -> list[dict[str, Any]]:
             allowed_domains=("eventbrite.com", "www.eventbrite.com"),
             max_candidate_urls=config.max_candidate_urls,
             max_follow_up_pages=config.max_deep_fetches,
-        ).to_payload()
+        ).to_payload(),
+        SourceDefinition(
+            source_id="mosaicdistrict:events",
+            label="Mosaic District Events",
+            category="events",
+            listing_url="https://mosaicdistrict.com/events/",
+            extract_strategy="event_local_calendar_detail",
+            source_type="community_calendar",
+            candidate_strategy="mosaic_event_listing",
+            source_name="Mosaic District",
+            allowed_domains=("mosaicdistrict.com", "www.mosaicdistrict.com"),
+            max_candidate_urls=12,
+            max_follow_up_pages=4,
+        ).to_payload(),
     ]
 
 
@@ -77,6 +92,8 @@ def _extract_candidate_urls(source: dict[str, Any], raw_html: str) -> list[str]:
 
     if strategy == "eventbrite_listing":
         return extract_candidate_event_urls(raw_html, listing_url, max_candidate_urls)
+    if strategy == "mosaic_event_listing":
+        return extract_mosaic_event_urls(raw_html, listing_url, max_candidate_urls)
 
     return []
 
@@ -125,6 +142,7 @@ def plan_follow_up_fetches(
                     f"Source label: {source['label']}",
                     f"Seed page: {listing_artifact['url']}",
                     f"Category: {source['category']}",
+                    f"Source type: {source['source_type']}",
                     "",
                     "Seed page excerpt:",
                     str(listing_artifact.get("content_excerpt", "")),
@@ -139,7 +157,11 @@ def plan_follow_up_fetches(
                     "You are reviewing a fetched seed page and deciding which follow-up HTML pages to request next.",
                     "Return only tasks that fetch more HTML from the available follow-up links.",
                     "Use action='fetch_html' and target equal to one of the available URLs exactly.",
-                    "Prefer real in-person Northern Virginia events over generic category pages, waitlists, or multi-city signup pages.",
+                    "Prefer real in-person Northern Virginia events over generic category pages, recurring list pages, or signup-only landing pages.",
+                    USER_TASTE_PROFILE,
+                    "Boost things that look like date-worthy plans, interesting food, outdoor time, animal-friendly outings, gaming culture, meaningful deals, or plausible flip opportunities.",
+                    "Ignore spammy promotion, thin roundup pages, and links that feel like marketing fluff rather than real finds.",
+                    "Avoid links that are clearly for past events, archived events, or expired promotions.",
                     f"Return at most {max_follow_up_pages} follow-up fetches.",
                 ]
             ),
@@ -185,7 +207,17 @@ def extract_item_from_artifact(
     page_artifact: dict[str, Any],
     generated_at: str,
 ) -> dict[str, Any] | None:
-    if str(source.get("extract_strategy", "")).strip() == "event_eventbrite_detail":
+    strategy = str(source.get("extract_strategy", "")).strip()
+    if strategy in {"event_eventbrite_detail", "event_local_calendar_detail"}:
+        source_name = str(source.get("source_name", "Local source")).strip() or "Local source"
+        source_type = str(source.get("source_type", "event_listing")).strip() or "event_listing"
+        if strategy == "event_eventbrite_detail":
+            source_description = "this Eventbrite event detail page"
+            reason_fallback = "Selected from the Northern Virginia Eventbrite listing for deeper review."
+        else:
+            source_description = f"this {source_name} event detail page"
+            reason_fallback = f"Selected from the {source_name} calendar for deeper review."
+
         return extract_event_record_from_content(
             config,
             event_url=str(page_artifact["url"]),
@@ -195,6 +227,10 @@ def extract_item_from_artifact(
                 "title": page_artifact.get("title"),
                 "image_url": page_artifact.get("image_url"),
             },
+            source_name=source_name,
+            source_type=source_type,
+            source_description=source_description,
+            reason_fallback=reason_fallback,
         )
 
     return None

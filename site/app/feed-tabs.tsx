@@ -21,16 +21,23 @@ type FeedTabsProps = {
 
 export function FeedTabs({ items }: FeedTabsProps) {
   const [activeTab, setActiveTab] = useState<Category>("events");
-  const filteredItems = useMemo(
-    () => items.filter((item) => item.category === activeTab),
-    [activeTab, items]
+  const tabCounts = useMemo(
+    () =>
+      tabs.reduce<Record<Category, number>>(
+        (counts, tab) => {
+          counts[tab.key] = items.filter((item) => item.category === tab.key).length;
+          return counts;
+        },
+        { events: 0, food: 0, deals: 0 }
+      ),
+    [items]
   );
+  const filteredItems = useMemo(() => items.filter((item) => item.category === activeTab), [activeTab, items]);
 
   return (
     <>
       <div className={styles.tabRow} role="tablist" aria-label="Content categories">
         {tabs.map((tab) => {
-          const count = items.filter((item) => item.category === tab.key).length;
           const isActive = tab.key === activeTab;
 
           return (
@@ -43,15 +50,34 @@ export function FeedTabs({ items }: FeedTabsProps) {
               onClick={() => setActiveTab(tab.key)}
             >
               <span>{tab.label}</span>
-              <strong>{count}</strong>
+              <strong>{tabCounts[tab.key]}</strong>
             </button>
           );
         })}
       </div>
 
       <div className={styles.feedList}>
+        {filteredItems.length === 0 ? (
+          <article className={`${styles.feedCard} ${styles.feedCardNoImage}`}>
+            <div className={styles.feedBody}>
+              <div className={styles.feedTopline}>
+                <span className={styles.categoryPill}>{activeTab}</span>
+              </div>
+              <h3>Nothing surfaced here yet</h3>
+              <p className={styles.description}>
+                This category is wired up, but the latest feed did not publish any {activeTab} items yet.
+              </p>
+            </div>
+          </article>
+        ) : null}
+
         {filteredItems.map((item) => (
           <article className={`${styles.feedCard} ${item.image_url ? "" : styles.feedCardNoImage}`} key={item.id}>
+            <div className={styles.feedScoreRail}>
+              <span className={styles.feedScoreLabel}>score</span>
+              <strong>{Math.round(item.interest_rating)}</strong>
+            </div>
+
             {item.image_url ? (
               <a
                 className={styles.feedImageLink}
@@ -80,7 +106,9 @@ export function FeedTabs({ items }: FeedTabsProps) {
               </h3>
               {item.time_summary ? <p className={styles.itemTime}>{item.time_summary}</p> : null}
               <p className={styles.description}>{item.description}</p>
-              <p className={styles.reason}>{item.reason}</p>
+              <p className={styles.reason}>
+                <strong>Why it made the board:</strong> {item.reason}
+              </p>
 
               <div className={styles.tagRow}>
                 {item.tags.map((tag) => (

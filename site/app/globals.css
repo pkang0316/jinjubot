@@ -5,9 +5,11 @@
   --text: #241d17;
   --muted: #685a4c;
   --line: rgba(86, 67, 46, 0.14);
+  --line-strong: rgba(86, 67, 46, 0.22);
   --accent: #477567;
   --accent-strong: #2f594e;
   --shadow: 0 26px 68px rgba(80, 57, 33, 0.12);
+  --ui-font: "Trebuchet MS", Arial, sans-serif;
 }
 
 * {
@@ -15,7 +17,9 @@
 }
 
 html {
-  background: linear-gradient(180deg, #f6efe6 0%, #efe6d9 100%);
+  background:
+    radial-gradient(circle at top left, rgba(125, 76, 36, 0.12), transparent 24%),
+    linear-gradient(180deg, #f6efe6 0%, var(--bg) 100%);
   color: var(--text);
   font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
 }
@@ -23,7 +27,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f6efe6 0%, #efe6d9 100%);
+  background:
+    radial-gradient(circle at top left, rgba(125, 76, 36, 0.12), transparent 24%),
+    linear-gradient(180deg, #f6efe6 0%, var(--bg) 100%);
 }
 
 a {
@@ -33,7 +39,7 @@ a {
 code {
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  background: rgba(71, 117, 103, 0.1);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
   font-family: "Courier New", monospace;
   font-size: 0.92rem;
 }

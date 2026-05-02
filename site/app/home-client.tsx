@@ -64,7 +64,6 @@ export function HomeClient({ publishedFeedUrl }: HomeClientProps) {
   }, [publishedFeedUrl]);
 
   const rankedItems = useMemo(() => rankFeedItems(digest?.items ?? []), [digest?.items]);
-  const hotPicks = useMemo(() => rankedItems.slice(0, 3), [rankedItems]);
   const updatedLabel = digest ? heroDateFormatter.format(new Date(digest.updatedAt)) : "";
 
   if (isLoading) {
@@ -115,7 +114,7 @@ export function HomeClient({ publishedFeedUrl }: HomeClientProps) {
           <img
             className={styles.heroMascotInline}
             src="/images/jinju1.png"
-            alt="Illustrated black-and-white dog mascot peeking into the weekend picks intro"
+            alt="Illustrated black-and-white dog mascot peeking into the local picks board"
           />
           <div className={styles.heroContent}>
             <h1>Jinju picks</h1>
@@ -123,42 +122,6 @@ export function HomeClient({ publishedFeedUrl }: HomeClientProps) {
               Fresh on {updatedLabel} <span aria-hidden="true">&middot;</span> {digest.items.length} local finds
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className={styles.hotPicksSection}>
-        <div className={styles.hotPicksGrid}>
-          {hotPicks.map((item, index) => (
-            <article
-              className={`${styles.hotPickCard} ${index === 0 ? styles.hotPickLead : ""} ${
-                item.image_url ? "" : styles.hotPickNoImage
-              }`}
-              key={item.id}
-            >
-              {item.image_url ? (
-                <a
-                  className={styles.hotPickImageLink}
-                  href={item.url}
-                  aria-label={item.title}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img className={styles.hotPickImage} src={item.image_url} alt={item.title} />
-                </a>
-              ) : null}
-
-              <div className={styles.hotPickBody}>
-                <span className={styles.categoryPill}>{item.category}</span>
-                <h2>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.title}
-                  </a>
-                </h2>
-                {item.time_summary ? <p className={styles.itemTime}>{item.time_summary}</p> : null}
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))}
         </div>
       </section>
 

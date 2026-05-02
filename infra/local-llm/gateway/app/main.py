@@ -113,6 +113,7 @@ async def extract(request: ExtractRequest) -> dict[str, Any]:
     part
     for part in [
       "Extract high-signal structured findings from the following web content.",
+      "Treat concrete facts as signal and marketing fluff as noise.",
       "Return valid JSON only.",
       (
         f"Schema hint:\n{request.schema_hint}"
@@ -141,7 +142,8 @@ async def plan(request: PlanRequest) -> dict[str, Any]:
   prompt = "\n\n".join(
     part
     for part in [
-      "Create the next discovery plan for a web research agent.",
+      "Create the next discovery plan for a selective local web research agent.",
+      "Prefer fewer, better follow-up fetches over broad low-signal exploration.",
       "Return valid JSON only.",
       'Output shape:\n{"tasks":[{"action":"","target":"","reason":""}],"notes":""}',
       f"Budget: {request.budget}" if request.budget else None,

@@ -27,7 +27,7 @@ That keeps deploy order simple and non-circular:
 - one CloudFront distribution that currently exists but is not on the active frontend serving path
 - DynamoDB tables for `items` and `sources`
 - IAM roles and policies for Lambda and Scheduler
-- an optional EventBridge Scheduler schedule
+- an EventBridge Scheduler schedule, hourly by default
 
 ## Why durable Lambda
 
@@ -151,13 +151,11 @@ terraform init
 terraform plan
 ```
 
-## Recommended first deployment
+## Scheduler defaults
 
-Start with:
+The Terraform defaults now enable the EventBridge schedule immediately with:
 
-- `enable_schedule = false`
-- invoke the Lambda manually
-- confirm it can reach `llm.jinjubot.io`
-- then enable the scheduler
+- `enable_schedule = true`
+- `schedule_expression = "rate(1 hour)"`
 
-That keeps the first cloud test predictable while the gateway credentials are still manual.
+If you want to pause it during iteration, override either value in `terraform.tfvars`.

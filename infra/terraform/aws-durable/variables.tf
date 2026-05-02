@@ -25,13 +25,13 @@ variable "lambda_function_name" {
 variable "schedule_expression" {
   description = "EventBridge Scheduler expression for recurring runs."
   type        = string
-  default     = "rate(1 day)"
+  default     = "rate(1 hour)"
 }
 
 variable "enable_schedule" {
   description = "Whether to enable the recurring scheduler immediately."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "llm_gateway_url" {

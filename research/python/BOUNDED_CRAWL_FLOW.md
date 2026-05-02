@@ -63,6 +63,7 @@ The first version keeps the architecture generic but the source registry intenti
 ### Current source registry
 
 - `eventbrite:northern-virginia`
+- `mosaicdistrict:events`
 
 The Lambda now seeds default source definitions into DynamoDB when they are missing, then loads active source rows from the `sources` table. Status updates are written back without overwriting the source config.
 
@@ -119,7 +120,7 @@ Each `source_runs` entry includes:
 After this first version is stable, the next extensions should be:
 
 1. Add raw HTML artifact persistence to S3
-2. Add a second source type with its own candidate-link adapter
+2. Add more source types with their own candidate-link adapters
 3. Add a second bounded follow-up round when needed
 4. Add deterministic dedupe:
    - canonical URL

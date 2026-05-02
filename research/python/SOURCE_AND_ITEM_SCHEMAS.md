@@ -62,6 +62,26 @@ Each source definition should live in DynamoDB and describe how the shared crawl
 }
 ```
 
+Another valid source row can point at a venue or community calendar:
+
+```json
+{
+  "source_id": "mosaicdistrict:events",
+  "source_kind": "discovery_source",
+  "enabled": true,
+  "label": "Mosaic District Events",
+  "category": "events",
+  "listing_url": "https://mosaicdistrict.com/events/",
+  "source_type": "community_calendar",
+  "candidate_strategy": "mosaic_event_listing",
+  "extract_strategy": "event_local_calendar_detail",
+  "source_name": "Mosaic District",
+  "allowed_domains": ["mosaicdistrict.com", "www.mosaicdistrict.com"],
+  "max_candidate_urls": 12,
+  "max_follow_up_pages": 4
+}
+```
+
 ### Optional operational fields
 
 ```json
